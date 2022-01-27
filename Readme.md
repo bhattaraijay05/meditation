@@ -1,6 +1,6 @@
 # Meditation App
 
-Hi, this is the meditation app made with React Native (for the frontend) and Next.js (for the backend). It is a simple app that allows you to meditate for a certain amount of time. It is a work in progress, so there are some bugs and some features that are not implemented yet. The app is still in development, so please be patient. You are welcome to contribute to the project.
+Hi, this is the meditation app made with React Native (for the frontend) and Nest.js (for the backend). It is a simple app that allows you to meditate for a certain amount of time. It is a work in progress, so there are some bugs and some features that are not implemented yet. The app is still in development, so please be patient. You are welcome to contribute to the project.
 
 # Design Idea
 
