@@ -1,0 +1,41 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Track {
+  id: String!
+  url: String!
+  title: String!
+  artist: String!
+  artwork: String!
+  album: String!
+  duration: Float!
+  image: String!
+  category: [String!]!
+  type: [String!]!
+}
+
+type Query {
+  tracks: [Track!]!
+  track(id: String!): Track!
+}
+
+type Mutation {
+  createTrack(input: CreateTrackInput!): Track!
+  updateTrack(input: CreateTrackInput!, id: String!): Track!
+  removeTrack(id: String!): Track!
+  updateTitle(title: String!, id: String!): Track!
+}
+
+input CreateTrackInput {
+  id: String!
+  url: String!
+  title: String!
+  artist: String!
+  artwork: String!
+  album: String!
+  duration: Float!
+  image: String!
+  category: [String!]!
+  type: [String!]!
+}
