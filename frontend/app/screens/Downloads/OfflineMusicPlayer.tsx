@@ -7,7 +7,6 @@ import React, {useEffect} from 'react';
 import {Alert, BackHandler, View} from 'react-native';
 import RNFS from 'react-native-fs';
 import MusicControl from 'react-native-music-control';
-import Sound from 'react-native-sound';
 import OfflineMusicHeader from './OfflineMusicHeader';
 
 const OfflineMusicPlayer = (props: any) => {
@@ -17,10 +16,9 @@ const OfflineMusicPlayer = (props: any) => {
   const player = useAudioHelper({
     listSounds: [
       {
-        type: 'app-bundle',
+        type: 'undefined',
         path: path,
         name: name,
-        basePath: Sound.MAIN_BUNDLE,
       },
     ],
   });

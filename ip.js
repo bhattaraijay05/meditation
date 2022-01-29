@@ -15,4 +15,5 @@ for (const name of Object.keys(nets)) {
   }
 }
 
-console.log(results["en0"][0]);
+console.log(results["en0"] && results["en0"][0]);
+console.log(results["Wi-Fi"] && results["Wi-Fi"][0]);

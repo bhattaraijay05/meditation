@@ -35,6 +35,12 @@ type SoundFileType =
       item?: TrackProps;
     }
   | {
+      type: 'undefined';
+      name: string;
+      path: string;
+      item?: TrackProps;
+    }
+  | {
       type: 'directory';
       name: string;
       path: NodeRequire;
@@ -150,6 +156,11 @@ export function useAudioHelper(
             currentAudio.path,
             SoundPlayer.MAIN_BUNDLE,
             error => callback(error, newPlayer),
+          );
+          break;
+        case 'undefined':
+          newPlayer = new SoundPlayer(currentAudio.path, undefined, error =>
+            callback(error, newPlayer),
           );
           break;
         case 'directory':

@@ -1,7 +1,7 @@
 import {downloadError} from '@constants/errors';
 import {TrackProps} from '@constants/Interfaces';
 import {requestStoragePermission} from '@constants/permissions';
-import {AudioDirectoryPath} from '@constants/saveconst';
+import {AudioDirectoryPath, DirectoryPath} from '@constants/saveconst';
 import {MyText, SafeView} from '@elements/SharedElements';
 import {Container} from '@elements/Styles';
 import {useAudioHelper} from '@helpers/audio-helper';
@@ -9,10 +9,9 @@ import useNavHelper from '@helpers/navHelper';
 import useStyle from '@hooks/useStyle';
 import Player from '@screens/Player/Player';
 import React, {useEffect, useState} from 'react';
-import {Alert, BackHandler, ToastAndroid, View} from 'react-native';
+import {Alert, BackHandler, Platform, ToastAndroid, View} from 'react-native';
 import RNFS, {DownloadProgressCallbackResult} from 'react-native-fs';
 import {useSharedValue} from 'react-native-reanimated';
-import Sound from 'react-native-sound';
 import Header from './Header';
 
 const PlayerPage = (props: any) => {
@@ -44,6 +43,8 @@ const PlayerPage = (props: any) => {
       })
       .catch(err => {
         console.log(err.message, err.code);
+        RNFS.mkdir(DirectoryPath);
+        RNFS.mkdir(AudioDirectoryPath);
       });
     return () => {
       isMounted = false;
@@ -53,10 +54,9 @@ const PlayerPage = (props: any) => {
   const player = useAudioHelper({
     listSounds: [
       {
-        type: 'app-bundle',
+        type: 'undefined',
         path: paths ? paths : item.url,
         name: item.title,
-        basePath: Sound.MAIN_BUNDLE,
         item: item,
       },
     ],
@@ -76,7 +76,7 @@ const PlayerPage = (props: any) => {
   }, []);
 
   const Toast = ({visible, message}: {visible: boolean; message: string}) => {
-    if (visible) {
+    if (visible && Platform.OS === 'android') {
       ToastAndroid.showWithGravityAndOffset(
         message,
         ToastAndroid.LONG,
@@ -107,7 +107,7 @@ const PlayerPage = (props: any) => {
   };
 
   const downloadData = async () => {
-    await requestStoragePermission();
+    Platform.OS === 'android' && (await requestStoragePermission());
 
     const response = RNFS.downloadFile(downloadOptions);
     response.promise

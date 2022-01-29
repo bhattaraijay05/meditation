@@ -2,11 +2,18 @@ import {TrackProps} from '@constants/Interfaces';
 import {MyText} from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
 import React from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View,
+} from 'react-native';
 import * as Progress from 'react-native-progress';
 import EnIcon from 'react-native-vector-icons/Entypo';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+const {width} = Dimensions.get('window');
 type HeaderProps = {
   backHandler: () => void;
   item: TrackProps;
@@ -23,7 +30,7 @@ const Header: React.FC<HeaderProps> = props => {
   };
 
   return (
-    <View style={styles.headerContainer}>
+    <View style={[styles.headerContainer]}>
       <Pressable
         onPress={handleBack}
         style={{...styles.cross, backgroundColor: color.inverse}}>
@@ -46,7 +53,11 @@ const Header: React.FC<HeaderProps> = props => {
 
         {downloadProgress > 0 && downloadProgress < 0.9 ? (
           <View style={{marginRight: 10, padding: 10, borderRadius: 30}}>
-            <Progress.Pie progress={downloadProgress} size={26} />
+            {Platform.OS === 'android' ? (
+              <Progress.Pie progress={downloadProgress} size={26} />
+            ) : (
+              <ActivityIndicator size="small" color="#f00" />
+            )}
           </View>
         ) : (
           <>
